@@ -72,7 +72,8 @@ def calculate_match(resume, job_description):
     matrix = vectorizer.fit_transform([resume, job_description])
     score = cosine_similarity(matrix[0:1], matrix[1:2])[0][0]
     return round(score * 100, 1)
-
+def open_resume_analyzer():
+    st.session_state["page"] = "Resume Analyzer"
 
 st.sidebar.title("🚀 AI CareerPilot")
 
@@ -88,7 +89,6 @@ page = st.sidebar.radio(
 st.sidebar.info(
     "Build your career with smarter resume insights."
 )
-
 if page == "Dashboard":
     st.markdown("""
     <div class="hero">
@@ -109,9 +109,13 @@ if page == "Dashboard":
         "to discover matching skills and areas to improve."
     )
 
-    if st.button("Analyze My Resume", type="primary"):
-        st.session_state["page"] = "Resume Analyzer"
-        st.rerun()
+   if st.button(
+    "Analyze My Resume",
+    type="primary",
+    key="dashboard_analyze",
+    on_click=lambda: st.session_state.update({"page": "Resume Analyzer"})
+):
+    pass
 
 elif page == "Resume Analyzer":
     st.title("📄 Resume Analyzer")
