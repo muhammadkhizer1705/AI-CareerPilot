@@ -75,9 +75,14 @@ def calculate_match(resume, job_description):
 
 
 st.sidebar.title("🚀 AI CareerPilot")
+
+if "page" not in st.session_state:
+    st.session_state["page"] = "Dashboard"
+
 page = st.sidebar.radio(
     "Navigation",
-    ["Dashboard", "Resume Analyzer", "About"]
+    ["Dashboard", "Resume Analyzer", "About"],
+    key="page"
 )
 
 st.sidebar.info(
